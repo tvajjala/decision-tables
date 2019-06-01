@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active:
+    - default
+  application:
+    name: decision-tables
+  output:
+    ansi:
+      enabled: always
+logging:
+  level:
+    # Enabling trace for app specific logging.
+    com.tvajjala: INFO
+    org.springframework: INFO
+    org: TRACE

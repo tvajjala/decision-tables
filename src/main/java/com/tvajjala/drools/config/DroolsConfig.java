@@ -37,7 +37,7 @@ public class DroolsConfig {
         DecisionTableConfiguration configuration = KnowledgeBuilderFactory.newDecisionTableConfiguration();
         configuration.setInputType(DecisionTableInputType.XLS);
 
-        Resource dt = ResourceFactory.newClassPathResource("com/tvajjala/drools/drools_discount.xlsx");
+        Resource dt = ResourceFactory.newClassPathResource("com/tvajjala/drools/student_grade.xlsx");
 
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem()
                 .write(dt);

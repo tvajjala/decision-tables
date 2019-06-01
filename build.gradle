@@ -1,6 +1,6 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.5.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -10,36 +10,31 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
 
-    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas
-    compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.13'
-
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore
-    compile group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.11'
+    implementation "org.apache.httpcomponents:httpcore:4.4.11"
 
     // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
-    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.13'
-
+    implementation "org.apache.poi:poi-ooxml:${poiVersion}"
     // https://mvnrepository.com/artifact/org.apache.poi/poi
-    compile group: 'org.apache.poi', name: 'poi', version: '3.13'
+    implementation "org.apache.poi:poi:${poiVersion}"
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas
+    implementation "org.apache.poi:poi-ooxml-schemas:${poiVersion}"
 
     // https://mvnrepository.com/artifact/org.kie/kie-ci
-	compile group: 'org.kie', name: 'kie-ci', version: '7.4.1.Final'
-
+    implementation "org.kie:kie-ci:${droolsVersion}"
     // https://mvnrepository.com/artifact/org.drools/drools-decisiontables
-    compile group: 'org.drools', name: 'drools-decisiontables', version: '7.4.1.Final'
-
+    implementation "org.drools:drools-decisiontables:${droolsVersion}"
     // https://mvnrepository.com/artifact/org.drools/drools-core
-    compile group: 'org.drools', name: 'drools-core', version: '7.4.1.Final'
-
+    implementation "org.drools:drools-core:${droolsVersion}"
     // https://mvnrepository.com/artifact/org.drools/drools-core
-    compile group: 'org.drools', name: 'drools-compiler', version: '7.4.1.Final'
+    implementation "org.drools:drools-compiler:${droolsVersion}"
 
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }

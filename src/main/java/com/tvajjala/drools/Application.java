@@ -2,8 +2,11 @@ package com.tvajjala.drools;
 
 import com.tvajjala.drools.model.Customer;
 import com.tvajjala.drools.model.Offer;
+import com.tvajjala.drools.model.Student;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,12 +19,28 @@ public class Application implements CommandLineRunner {
         SpringApplication.run(Application.class, args);
     }
 
+
+    private Logger LOG = LoggerFactory.getLogger(Application.class);
     @Autowired
-    private
-    KieContainer kieContainer;
+    private KieContainer kieContainer;
 
     @Override
     public void run(String... args) {
+
+        KieSession kieSession = kieContainer.newKieSession();
+
+        Student student = new Student();
+        student.setMarks(900);
+        student.setAttendance(90.00);
+        kieSession.insert(student);
+        kieSession.fireAllRules();
+
+        LOG.info("Student Received Grade  {} ", student.getGrade());
+
+    }
+
+
+    public void customer() {
 
         KieSession kieSession = kieContainer.newKieSession();
         Customer customer = new Customer();

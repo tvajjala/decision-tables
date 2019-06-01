@@ -12,4 +12,5 @@ logging:
     # Enabling trace for app specific logging.
     com.tvajjala: INFO
     org.springframework: INFO
-    org: TRACE
+    org.drools: TRACE
+    org.kie: TRACE

@@ -20,14 +20,14 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * Drools configuration
+ * Drools configuration to create KieContainer as a spring bean
  *
  * @author ThirupathiReddy Vajjala
  */
 @Configuration
 public class DroolsConfig {
 
-    private Logger LOG = LoggerFactory.getLogger(DroolsConfig.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(DroolsConfig.class);
 
     /**
      * @return kieContainer
@@ -35,43 +35,33 @@ public class DroolsConfig {
     @Bean
     public KieContainer kieContainer() throws Exception {
 
-        KieServices kieServices = KieServices.Factory.get();
-
-        DecisionTableConfiguration configuration = KnowledgeBuilderFactory.newDecisionTableConfiguration();
+        final KieServices kieServices = KieServices.Factory.get();
+        final DecisionTableConfiguration configuration = KnowledgeBuilderFactory.newDecisionTableConfiguration();
         configuration.setInputType(DecisionTableInputType.XLSX);
 
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-
-        KieFileSystem fileSystem = kieServices.newKieFileSystem();
+        final PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        final KieFileSystem fileSystem = kieServices.newKieFileSystem();
 
         Arrays.stream(resolver.getResources("classpath*:com/tvajjala/drools/*.xlsx")).forEach(
                 resource -> {
                     try {
-                        LOG.info("Reading file {}", resource.getFile());
+                        LOGGER.info("Reading file {}", resource.getFile());
                         fileSystem.write(ResourceFactory.newFileResource(resource.getFile()));
-                    } catch (IOException e) {
-                        LOG.error("Error loading file", e);
+                    } catch (final IOException e) {
+                        LOGGER.error("Error loading file", e);
                     }
                 }
         );
 
 
-        KieBuilder kieBuilder = kieServices.newKieBuilder(fileSystem).buildAll();
-
-        LOG.info("DefaultReleaseId {} for results {}", kieBuilder.getKieModule().getReleaseId(), kieBuilder.getResults());
-
-        KieRepository kieRepository = kieServices.getRepository();
-
-
-        ReleaseId krDefaultReleaseId = kieRepository.getDefaultReleaseId();
-        LOG.info("DefaultReleaseId {} ", krDefaultReleaseId);
-
-        KieContainer kieContainer = kieServices.newKieContainer(kieBuilder.getKieModule().getReleaseId());
-
-        LOG.info("Created  kieContainer {} ", kieContainer);
-
+        final KieBuilder kieBuilder = kieServices.newKieBuilder(fileSystem).buildAll();
+        LOGGER.info("DefaultReleaseId {} for results {}", kieBuilder.getKieModule().getReleaseId(), kieBuilder.getResults());
+        final KieRepository kieRepository = kieServices.getRepository();
+        final ReleaseId krDefaultReleaseId = kieRepository.getDefaultReleaseId();
+        LOGGER.info("DefaultReleaseId {} ", krDefaultReleaseId);
+        final KieContainer kieContainer = kieServices.newKieContainer(kieBuilder.getKieModule().getReleaseId());
+        LOGGER.info("Created  kieContainer {} ", kieContainer);
         return kieContainer;
-
 
     }
 }

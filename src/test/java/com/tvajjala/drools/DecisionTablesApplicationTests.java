@@ -29,12 +29,11 @@ public class DecisionTablesApplicationTests {
     public void studentGradeTest() {
 
         final KieSession kieSession = kieContainer.newKieSession();
-
         final Student student = new Student();
         student.setMarks(900);
-        student.setAttendance(90.00);
+        student.setAttendance(70.5);
         kieSession.insert(student);
-        kieSession.getAgenda().getAgendaGroup("C").setFocus();
+        kieSession.getAgenda().getAgendaGroup("GRADE").setFocus();
         kieSession.fireAllRules();
 
         Assert.assertEquals(Student.Grade.C, student.getGrade());

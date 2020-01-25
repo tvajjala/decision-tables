@@ -38,7 +38,7 @@ public class DroolsConfig {
         KieServices kieServices = KieServices.Factory.get();
 
         DecisionTableConfiguration configuration = KnowledgeBuilderFactory.newDecisionTableConfiguration();
-        configuration.setInputType(DecisionTableInputType.XLS);
+        configuration.setInputType(DecisionTableInputType.XLSX);
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
